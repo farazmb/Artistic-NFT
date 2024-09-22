@@ -23,4 +23,9 @@ contract nftTest is Test {
     //     nft.mintNFT(recipient, tokenId);
     //     assertEq(nft.ownerOf(1), recipient);
     // }
+    function testBaseURI() public {
+        string memory baseURI = "ipfs://QmYtZfbM3GRWWqLJ1tNQV5gsgyZTL2BxbLVdp8g3pkKswL"
+        "ipfs://QmY8zPTizXgBCjgRqkBF1ySREkVJc35ER7hVgfHtUR3XzP";
+        assertEq(nft.publicBaseURI(), baseURI, "Base URI should match");
+    }
 }
