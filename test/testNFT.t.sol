@@ -1,31 +1,30 @@
-//SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.18;
 
-import {Test} from "forge-std/Test.sol";
-import "..//src/nft.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 
-contract nftTest is Test {
-    NFT nft;
-    address recipient = address(this); // EOA address
+contract NFT is ERC721 {
+    constructor() ERC721("Artistic Token", "ART") {}
 
-    function setUp() public {
-        nft = new NFT();
+    function mintNFT(address recipient, uint256 tokenId) public {
+        _safeMint(recipient, tokenId);
     }
 
-    function testDeployment() public view {
-        assertEq(nft.name(), "Astistic Token");
-        assertEq(nft.symbol(), "ART");
+    function _baseURI() internal view virtual override returns (string memory) {
+        return "ipfs://QmYtZfbM3GRWWqLJ1tNQV5gsgyZTL2BxbLVdp8g3pkKswL/";
     }
 
-    // function testMinting() public {
-    //     uint256 tokenId = 1;
+    function tokenURI(
+        uint256 tokenId
+    ) public view virtual override returns (string memory) {
+        return
+            string(
+                abi.encodePacked(_baseURI(), Strings.toString(tokenId), ".json")
+            );
+    }
 
-    //     nft.mintNFT(recipient, tokenId);
-    //     assertEq(nft.ownerOf(1), recipient);
-    // }
-    function testBaseURI() public {
-        string memory baseURI = "ipfs://QmYtZfbM3GRWWqLJ1tNQV5gsgyZTL2BxbLVdp8g3pkKswL"
-        "ipfs://QmY8zPTizXgBCjgRqkBF1ySREkVJc35ER7hVgfHtUR3XzP";
-        assertEq(nft.publicBaseURI(), baseURI, "Base URI should match");
+    function publicBaseURI() external view returns (string memory) {
+        return _baseURI();
     }
 }

@@ -11,12 +11,11 @@ contract NFT is ERC721 {
     }
 
     function _baseURI() internal view virtual override returns (string memory) {
-        return
-            "ipfs://QmYtZfbM3GRWWqLJ1tNQV5gsgyZTL2BxbLVdp8g3pkKswL"
-            "ipfs://QmY8zPTizXgBCjgRqkBF1ySREkVJc35ER7hVgfHtUR3XzP";
+        return "ipfs://QmYtZfbM3GRWWqLJ1tNQV5gsgyZTL2BxbLVdp8g3pkKswL";
     }
 
     function publicBaseURI() external view returns (string memory) {
         return _baseURI();
     }
 }
+//"ipfs://QmY8zPTizXgBCjgRqkBF1ySREkVJc35ER7hVgfHtUR3XzP"
